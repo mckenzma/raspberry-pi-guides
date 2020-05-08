@@ -11,6 +11,7 @@
 
 ##References##
 [Yes, you can run Docker on Raspian](https://withblue.ink/2019/07/13/yes-you-can-run-docker-on-raspbian.html)
+[How to Install and Use Docker on Raspberry Pi](https://linuxize.com/post/how-to-install-and-use-docker-on-raspberry-pi/)
 
 ##Steps##
 
@@ -18,6 +19,7 @@
 	1. [Download](https://www.raspberrypi.org/downloads/raspbian/)
 		* **Raspbian Buster Lite** is perfect for just using the terminal.
 	1. Install Raspian on SD Card 
+1. [Changing Keyboard Layout](https://scribles.net/changing-keyboard-layout-on-raspberry-pi/)
 1. Setup network (connect to internet)
 1. Get SSH access
 1. Create SSH key for SSH'ing
@@ -31,6 +33,7 @@
 	1. Navigate to api folder locally
 	1. Copy API/Dockerfile as API/Dockerfile.pi
 		1. Open file and change `node` to `arm32v7/node`
+			* [link](https://hub.docker.com/r/arm32v7/node/)
 	1. `sudo docker build`
 	1. Create docker image: `docker build -t <your dockerhub username>/<your private repo>:custom-tag -f Dockerfile.pi .`
 	1. Run `docker images` to make sure it was completed
