@@ -1,6 +1,6 @@
-#Guide to run graphql api#
+# Guide to run graphql api #
 
-##Equipment##
+## Equipment ##
 * Raspberry Pi
 	* version: 3+
 	* RAM: 1 GB
@@ -9,12 +9,12 @@
 * MacBook Pro
 	* To build docker images
 
-##References##
+## References ##
 [Yes, you can run Docker on Raspian](https://withblue.ink/2019/07/13/yes-you-can-run-docker-on-raspbian.html)
 [How to Install and Use Docker on Raspberry Pi](https://linuxize.com/post/how-to-install-and-use-docker-on-raspberry-pi/)
 [Getting started with Docker on your Raspberry Pi](https://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/)
 
-##Steps##
+## Steps ##
 
 1. Install latest Raspian OS
 	1. [Download](https://www.raspberrypi.org/downloads/raspbian/)
