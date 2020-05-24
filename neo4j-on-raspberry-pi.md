@@ -1,4 +1,4 @@
-# Guide to run graphql api #
+# Guide to run Neo4j #
 
 ## Equipment ##
 * Raspberry Pi
