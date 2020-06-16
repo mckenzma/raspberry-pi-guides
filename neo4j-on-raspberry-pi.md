@@ -30,4 +30,12 @@
 	1. ...
 1. Push Docker image to docker hub
 1. On Pi
-	
+
+update neo4.conf
+navigate to folder `cd /etc/neo4j/`
+update `neo4j.conf` file 
+`dbms.connectors.default_listen_address=0.0.0.0
+dbms.connector.https.listen_address=0.0.0.0:7473
+dbms.connector.http.listen_address=0.0.0.0:7474
+dbms.connector.bolt.listen_address=0.0.0.0:7687`
+**later will want to address 0.0.0.0 for sensitive data** 
