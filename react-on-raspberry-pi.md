@@ -42,5 +42,21 @@
 	1. Pull from Docker: `docker pull <you dockerhub username>/<your private repo>:custom-tag`
 	1. `sudo docker-compose up -d` **is this needed?**
 	1. `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
-	1. **add info about editing this file**
-	1. `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
+	1. docker-compose.yml**add info about editing this file**
+	`version: '3'
+​
+services:
+  api:
+    image: <your dockerhub username>/<your private repo>:custom-tag
+	ports:
+	  - 3000:3000
+	environment:
+	  - REACT_APP_GRAPHQL_URI=http://<graphql api ip address>:4001/graphql
+	  - REACT_APP_MAPBOX_TOKEN=<token>
+`
+	1. `docker run --rm -it -e REACT_APP_GRAPHQL_URI=http://<graphql api ip address>:4001/graphql -e REACT_APP_MAPBOX_TOKEN=<token> -p 3000:3000 <your dockerhub username>/<your private repo>:custom-tag`
+
+identify running docker containers
+`docker ps`
+stop docker container
+`docker stop <container id>`
