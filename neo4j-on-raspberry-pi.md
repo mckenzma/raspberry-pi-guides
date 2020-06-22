@@ -1,66 +1,59 @@
-# Guide to run Neo4j #
+# Guide to run Neo4j on Raspberry Pi #
+
+Install and deploy a Neo4j database as part of a [GRANDstack](https://grandstack.io) web application on a Raspberry Pi. Steps requiring specific changes, modifications, and updates have been provided. Official documentation has been referenced by links.
 
 ## Equipment ##
 * Raspberry Pi
 	* version: 4
 	* RAM: 4 GB
 * Micro SD Card
-* 
 * MacBook Pro
-	* To build docker images
+	* 
 
 ## References ##
 
 ## Steps ##
-1. Reflash latest Raspian OS
-	1. Raspberry Pi 4 came with latest NOOBS
-	1. Download
-	1. Install Raspian on SD Card
-1. Change Keyboard Layout
-1. Setup network (connect to internet)
-1. Get SSH access
-1. Create SSH Key for SSH-ing
-1. SSH Hardening (securing SSH)
-1. Install Docker and Docker Compose
-1. Create account on Docker Hub
-	1. Create Docker Hub Repo
-	1. Set repo to private
-1. Build Docker image (MacBook Pro)
-	1. Navigate to api folder locally
-	1. ...
-1. Push Docker image to docker hub
+1. On MacBook Pro
+	1. Install latest Raspian OS
+		1. [[Install latest Raspberry Pi OS on SD Card](https://www.raspberrypi.org/documentation/installation/installing-images/)
+			* **Raspbian Buster Lite** is perfect for just using the terminal!
 1. On Pi
-
-
-
-update neo4.conf
-navigate to folder `cd /etc/neo4j/`
-update `neo4j.conf` file 
-`dbms.default_listen_address=0.0.0.0
-dbms.default_advertised_address=<pi ip address>
-# Bolt connector
-dbms.connector.bolt.enabled=true
-#dbms.connector.bolt.tls_level=OPTIONAL
-dbms.connector.bolt.listen_address=0.0.0.0:7687
-# HTTP Connector. There can be zero or one HTTP connectors.
-dbms.connector.http.enabled=true
-dbms.connector.http.listen_address=0.0.0.0:7474
-# HTTPS Connector. There can be zero or one HTTPS connectors.
-dbms.connector.https.enabled=false
-#dbms.connector.https.listen_address=0.0.0.0:7473`
-**later will want to address 0.0.0.0 for sensitive data** 
-
-**install apoc**
-1. identify release to install @ https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/
-	1. identify .jar file
-1. from pi
-	1. `sudo wget https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.0.0.15/apic-4.0.0.15-all.jar`
-	1. `cp apoc-4.0.0.15.-all.jar /var/lib/neo4j/plugins/`
-	1. is this needed?
-		1. cd `/var/lib/neo4j/plugins/`
+	1. Insert SD card into Pi, connect peripherals (monitor and keyboard) 
+	1. [Update keyboard layout](https://scribles.net/changing-keyboard-layout-on-raspberry-pi/)
+	1. [Connect to Wifi](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
+	1. [Enable SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+	1. **Create SSH key for SSH'ing**
+		1. **[Come back to later](https://www.raspberrypi.org/documentation/configuration/security.md)**
+	1. SSH Hardening (securing SSH)
+		1. **come back to later**
+	1. Install Neo4j
+		1. **come back to later**
+	1. Update `neo4j.conf`
+		1. Navigate to folder: `cd /etc/neo4j/`
+		1. Update file using `sudo nano neo4j.conf` to modify the following lines:
+			- `dbms.default_listen_address=0.0.0.0`
+			- `dbms.default_advertised_address=<pi ip address>`
+			- > `# Bolt connector`
+			  > `dbms.connector.bolt.enabled=true`
+			  > `#dbms.connector.bolt.tls_level=OPTIONAL`
+			  > `dbms.connector.bolt.listen_address=0.0.0.0:7687`
+			
+			- > `# HTTP Connector. There can be zero or one HTTP connectors.`
+			  > `dbms.connector.http.enabled=true`
+			  > `dbms.connector.http.listen_address=0.0.0.0:7474`
+			
+			- > `# HTTPS Connector. There can be zero or one HTTPS connectors.`
+			  > `dbms.connector.https.enabled=false`
+			  > `#dbms.connector.https.listen_address=0.0.0.0:7473`
+			  > **later will want to address 0.0.0.0 for sensitive data**
+			
+			- uncomment out this line: `dbms.security.procedures.unrestricted=apoc.*`
+			- update this line: `dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*`
+	1. Install APOC
+		1. [Identify APOC release (.jar file) to install](https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/)
+		1. Download APOC .jar file: `sudo wget https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.0.0.15/apic-4.0.0.15-all.jar`
+		1. Copy file to `plugins` folder: `cp apoc-4.0.0.15.-all.jar /var/lib/neo4j/plugins/`
+		1. Navigate to `plugins` folder: `cd /var/lib/neo4j/plugins/`
 		1. `sudo chown neo4j:neo4j *.jar`
-	1. `systemctl restart neo4j`
-1. update `neo4j.conf`
-	1. uncomment out this line: `dbms.security.procedures.unrestricted=apoc.*`
-	1. update this line: `dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*`
-
+		1. Restart Neo4j service if running: `systemctl restart neo4j`; Or start Neo4j service: `sudo neo4j start`
+			- To stop neo4j: `sudo neo4j stop`
