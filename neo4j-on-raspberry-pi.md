@@ -35,7 +35,7 @@ Install and deploy a Neo4j database as part of a [GRANDstack](https://grandstack
 			- `dbms.default_advertised_address=<pi ip address>`
 			- > `# Bolt connector`
 			  > `dbms.connector.bolt.enabled=true`
-			  > `#dbms.connector.bolt.tls_level=OPTIONAL`
+			  > `dbms.connector.bolt.tls_level=OPTIONAL`
 			  > `dbms.connector.bolt.listen_address=0.0.0.0:7687`
 			
 			- > `# HTTP Connector. There can be zero or one HTTP connectors.`
