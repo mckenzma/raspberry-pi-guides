@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  api:
+    image: <your dockerhub username>/<your private repo>:custom-tag
+		ports:
+	  	- 3000:3000
+		environment:
+	  	- REACT_APP_GRAPHQL_URI=http://<graphql api ip address>:4001/graphql
+	  	- REACT_APP_MAPBOX_TOKEN=<token>

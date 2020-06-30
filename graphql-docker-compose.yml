@@ -1,0 +1,11 @@
+version: '3'
+			 
+services:
+  api:
+    image: <your dockerhub username>/<your private repo>:custom-tag
+		ports:
+	  	- 4000:4000
+		environment:
+	  	- NEO4J_URI=bolt://<MAC ip address on lan>:4001/graphql
+	  	- NEO4J_USER=<neo4j username>
+   		- NEO4J_PASSWORD=<neo4j password>

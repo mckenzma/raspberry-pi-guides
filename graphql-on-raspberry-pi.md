@@ -32,7 +32,8 @@ This guide assumes you currently have a GRANDstack application on your local mac
 	1. [Enable SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
 	1. **Create SSH key for SSH'ing**
 		1. **[Come back to later](https://www.raspberrypi.org/documentation/configuration/security.md)**
-	1. **SSH Hardening (securing SSH)**
+	1. SSH Hardening (securing SSH)
+		1. **come back to later**
 1. On MacBook Pro
 	1. [Get and Install Docker](https://docs.docker.com/get-docker/)
 		- In this guide I am using [Mac](https://docs.docker.com/docker-for-mac/install/).
@@ -40,7 +41,7 @@ This guide assumes you currently have a GRANDstack application on your local mac
 	1. [Sign up for or sign into Docker Hub](https://hub.docker.com/)
 	1. [Create Docker Hub repository and set to private](https://docs.docker.com/docker-hub/repos/)
 	1. Build docker image (MacBook Pro)
-		1. Navigate to api folder locally
+		1. Navigate to `api` folder locally
 		1. Copy `API/Dockerfile` as `API/Dockerfile.pi`
 			1. Open file and change `node` to `arm32v7/node`
 				* [link](https://hub.docker.com/r/arm32v7/node/)
@@ -59,20 +60,8 @@ This guide assumes you currently have a GRANDstack application on your local mac
 		- `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
 	1. Update "docker-compose.yml"
 		- `nano docker-compose.yml`
-		- Update the "docker-compose.yml" to read: **how to format this???**
-			
-			>version: '3'
-			> 
-			>services:
-			>  api:
-			>    image: <your dockerhub username>/<your private repo>:custom-tag
-			>	ports:
-			>	  - 4000:4000
-			>	environment:
-			>	  - NEO4J_URI=bolt://<MAC ip address on lan>:4001/graphql
-			>	  - NEO4J_USER=<neo4j username>
-			>     - NEO4J_PASSWORD=<neo4j password>
-
+		- Revise "docker-compose.yml" file to look [like this](https://github.com/mckenzma/raspberry-pi-guides/blob/master/graphql-docker-compose.yml). 
+		- Note the referenced "docker-compose.yml" file is prefixed by "graphql-". This is purely for easy reference in this repository.
 	1. Start docker container:
 		- `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
 	1. If you need to stop a container:

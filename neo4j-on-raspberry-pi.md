@@ -27,7 +27,7 @@ Install and deploy a Neo4j database as part of a [GRANDstack](https://grandstack
 	1. SSH Hardening (securing SSH)
 		1. **come back to later**
 	1. Install Neo4j
-		1. **come back to later**
+		1. [Neo4j Debian Packages](https://debian.neo4j.com/)
 	1. Update `neo4j.conf`
 		1. Navigate to folder: `cd /etc/neo4j/`
 		1. Update file using `sudo nano neo4j.conf` to modify the following lines:
@@ -35,7 +35,7 @@ Install and deploy a Neo4j database as part of a [GRANDstack](https://grandstack
 			- `dbms.default_advertised_address=<pi ip address>`
 			- > `# Bolt connector`
 			  > `dbms.connector.bolt.enabled=true`
-			  > `dbms.connector.bolt.tls_level=OPTIONAL`
+			  > `#dbms.connector.bolt.tls_level=OPTIONAL`
 			  > `dbms.connector.bolt.listen_address=0.0.0.0:7687`
 			
 			- > `# HTTP Connector. There can be zero or one HTTP connectors.`

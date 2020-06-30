@@ -57,21 +57,12 @@ This guide assumes you have a GRANDstack applciation on your local machine. If n
 		- `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
 	1. Update "docker-compose.yml"
 		- `nano docker-compose.yml`
-		- Update the "docker-compose.yml" to read: **how to format this???**
-
-			>version: '3'
-​			>
-			>services:
-			>  api:
-			>    image: <your dockerhub username>/<your private repo>:custom-tag
-			>	ports:
-			>	  - 3000:3000
-			>	environment:
-			>	  - REACT_APP_GRAPHQL_URI=http://<graphql api ip address>:4001/graphql
-			>	  - REACT_APP_MAPBOX_TOKEN=<token>
-
+		- Revise "docker-compose.yml" file to look [like this](https://github.com/mckenzma/raspberry-pi-guides/blob/master/react-docker-compose.yml). 
+		- Note the referenced "docker-compose.yml" file is prefixed by "react-". This is purely for easy reference in this repository.
+		- Also, note that `REACT_APP_GRAPHQL_URI` is an environment variable that is required for the GRANDstack application. The other environment variable, `REACT_APP_MAPBOX_TOKEN`, is specific for my use case. Add pertinent environment variables here as necessary. 
 	1. Start docker container:
 		- `docker run --rm -it -e REACT_APP_GRAPHQL_URI=http://<graphql api ip address>:4001/graphql -e REACT_APP_MAPBOX_TOKEN=<token> -p 3000:3000 <your dockerhub username>/<your private repo>:custom-tag`
+		- Be sure to add environment variables decleare in the "docker-compose.yml" file in the `docker run` command above.
 	1. If you need to stop a container:
 		1. Identify running docker containers:
 			- `docker ps`
