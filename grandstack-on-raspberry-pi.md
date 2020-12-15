@@ -6,9 +6,9 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 
 ## Equipment ##
 * Raspberry Pi
-  * version 4
+  * Version 4
   * RAM: 8GB
-* Micro SD Card
+* Micro SD Card: 64GB
 * MacBook Pro
   * GRANDstack development machine
   * Build docker images
@@ -21,6 +21,8 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 - [Getting started with Docker on your Raspberry Pi](https://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/)
 
 ## Steps ##
+
+<!--- Comments are Fun --->
 
 ### MacBook Pro (Development Machine) ###
 1. [Install latest Raspberry Pi OS on SD Card](https://www.raspberrypi.org/documentation/installation/installing-images/)
