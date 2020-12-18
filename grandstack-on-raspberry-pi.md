@@ -25,8 +25,7 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 <!--- Comments are Fun --->
 
 ### MacBook Pro (Development Machine) ###
-1. [Install latest Raspberry Pi OS on SD Card](https://www.raspberrypi.org/documentation/installation/installing-images/)
-  * **Rasbian Buster Lite** is perfect for just using the terminal!
+1. [Install latest Raspberry Pi OS on SD Card](https://www.raspberrypi.org/documentation/installation/installing-images/). **Rasbian Buster Lite** is perfect for keeping the OS lite and just using the terminal!
 1. [Get and Install Docker](https://docs.docker.com/get-docker/)
   - In this guide I am using [Mac](https://docs.docker.com/docker-for-mac/install/).
 1. [Get and Install Docker Compose](https://docs.docker.com/compose/install/)
@@ -50,10 +49,12 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 1. [Update keyboard layout](https://scribles.net/changing-keyboard-layout-on-raspberry-pi/)
 1. [Connect to Wifi](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
 1. [Enable SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+<!-- 
 1. **Create SSH key for SSH'ing**
 	1. **[Come back to later](https://www.raspberrypi.org/documentation/configuration/security.md)**
 1. SSH Hardening (securing SSH)
 	1. **come back to later**
+-->
 
 #### React & GraphQL ####
 install docker
@@ -102,34 +103,36 @@ services:
 
 
 #### Neo4j ####
-1. Insert SD card into Pi, connect peripherals (monitor and keyboard) 
-1. [Update keyboard layout](https://scribles.net/changing-keyboard-layout-on-raspberry-pi/)
-1. [Connect to Wifi](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
-1. [Enable SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
-1. **Create SSH key for SSH'ing**
-  1. **[Come back to later](https://www.raspberrypi.org/documentation/configuration/security.md)**
-1. SSH Hardening (securing SSH)
-  1. **come back to later**
-1. Install Neo4j
+
+1. Identify & Install Neo4j Version
   1. [Neo4j Debian Packages](https://debian.neo4j.com/)
+1. Install Java: Will need to install OpenJDK 11 runtime as stated [here](https://neo4j.com/docs/operations-manual/current/installation/linux/debian/?_ga=2.196841515.687545963.1608309763-1865895428.1586215484)
 1. Update `neo4j.conf`
   1. Navigate to folder: `cd /etc/neo4j/`
-  1. Update file using `sudo nano neo4j.conf` to modify the following lines:
-    - `dbms.default_listen_address=0.0.0.0`
-    - `dbms.default_advertised_address=<pi ip address>`
-    - > `# Bolt connector`
-      > `dbms.connector.bolt.enabled=true`
-      > `#dbms.connector.bolt.tls_level=OPTIONAL`
-      > `dbms.connector.bolt.listen_address=0.0.0.0:7687`
+  1. Update file using `sudo nano neo4j.conf` to modify the file
+    1. Update `dbms.connector` settings:
+```
+dbms.default_listen_address=0.0.0.0
+dbms.default_advertised_address=<pi ip address>
+# Bolt connector
+dbms.connector.bolt.enabled=true`
+#dbms.connector.bolt.tls_level=OPTIONAL`
+dbms.connector.bolt.listen_address=0.0.0.0:7687`
     
-    - > `# HTTP Connector. There can be zero or one HTTP connectors.`
-      > `dbms.connector.http.enabled=true`
-      > `dbms.connector.http.listen_address=0.0.0.0:7474`
+ # HTTP Connector. There can be zero or one HTTP connectors.`
+ dbms.connector.http.enabled=true`
+ dbms.connector.http.listen_address=0.0.0.0:7474`
     
-    - > `# HTTPS Connector. There can be zero or one HTTPS connectors.`
-      > `dbms.connector.https.enabled=false`
-      > `#dbms.connector.https.listen_address=0.0.0.0:7473`
-      > **later will want to address 0.0.0.0 for sensitive data**
+ # HTTPS Connector. There can be zero or one HTTPS connectors.`
+ dbms.connector.https.enabled=false`
+ #dbms.connector.https.listen_address=0.0.0.0:7473`
+```
+    1. Update `dbms.security` settings:
+```
+dbms.security.procedures.unrestricted=apoc.*
+dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*
+  ```
+  <!-- TODO: Address 0.0.0.0 for sensitive data -->
     
     - uncomment out this line: `dbms.security.procedures.unrestricted=apoc.*`
     - update this line: `dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*`
