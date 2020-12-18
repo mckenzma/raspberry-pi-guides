@@ -60,23 +60,23 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 install docker
 
 1. Log in to Docker: 
-  - `sudo docker login -u <username> -p <password>`
+    - `sudo docker login -u <username> -p <password>`
 1. Pull from Docker: 
-  - `docker pull <you dockerhub username>/<your private repo>:custom-tag`
+    - `docker pull <you dockerhub username>/<your private repo>:custom-tag`
 1. `sudo docker-compose up -d`	
 1. Get your docker-compose.yml file from your github repository:
-  - `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
+    - `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
 1. Update "docker-compose.yml"
-  - `nano docker-compose.yml`
-  - Revise "docker-compose.yml" file to look [like this](https://github.com/mckenzma/raspberry-pi-guides/blob/master/graphql-docker-compose.yml). 
-  - Note the referenced "docker-compose.yml" file is prefixed by "graphql-". This is purely for easy reference in this repository.
+    - `nano docker-compose.yml`
+    - Revise "docker-compose.yml" file to look [like this](https://github.com/mckenzma/raspberry-pi-guides/blob/master/graphql-docker-compose.yml). 
+    - Note the referenced "docker-compose.yml" file is prefixed by "graphql-". This is purely for easy reference in this repository.
 1. Start docker container:
-  - `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
+    - `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
 1. If you need to stop a container:
-  1. Identify running docker containers:
-    - `docker ps`
-  1. To stop a docker container:
-    - `docker stop <container id>`
+    1. Identify running docker containers:
+        - `docker ps`
+    1. To stop a docker container:
+        - `docker stop <container id>`
 
 Update `docker-compose.yml` using 
 
@@ -111,6 +111,7 @@ services:
   1. Navigate to folder: `cd /etc/neo4j/`
   1. Update file using `sudo nano neo4j.conf` to modify the file
     1. Update `dbms.connector` settings:
+
 ```
 dbms.default_listen_address=0.0.0.0
 dbms.default_advertised_address=<pi ip address>
@@ -127,7 +128,9 @@ dbms.connector.bolt.listen_address=0.0.0.0:7687
  dbms.connector.https.enabled=false
  #dbms.connector.https.listen_address=0.0.0.0:7473
 ```
-    1. Update `dbms.security` settings:
+
+  1. Update `dbms.security` settings:
+
 ```
 dbms.security.procedures.unrestricted=apoc.*
 dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*
