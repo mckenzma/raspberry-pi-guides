@@ -115,17 +115,17 @@ services:
 dbms.default_listen_address=0.0.0.0
 dbms.default_advertised_address=<pi ip address>
 # Bolt connector
-dbms.connector.bolt.enabled=true`
-#dbms.connector.bolt.tls_level=OPTIONAL`
-dbms.connector.bolt.listen_address=0.0.0.0:7687`
+dbms.connector.bolt.enabled=true
+#dbms.connector.bolt.tls_level=OPTIONAL
+dbms.connector.bolt.listen_address=0.0.0.0:7687
     
- # HTTP Connector. There can be zero or one HTTP connectors.`
- dbms.connector.http.enabled=true`
- dbms.connector.http.listen_address=0.0.0.0:7474`
+ # HTTP Connector. There can be zero or one HTTP connectors.
+ dbms.connector.http.enabled=true
+ dbms.connector.http.listen_address=0.0.0.0:7474
     
- # HTTPS Connector. There can be zero or one HTTPS connectors.`
- dbms.connector.https.enabled=false`
- #dbms.connector.https.listen_address=0.0.0.0:7473`
+ # HTTPS Connector. There can be zero or one HTTPS connectors.
+ dbms.connector.https.enabled=false
+ #dbms.connector.https.listen_address=0.0.0.0:7473
 ```
     1. Update `dbms.security` settings:
 ```
