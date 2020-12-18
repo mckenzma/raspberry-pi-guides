@@ -35,12 +35,12 @@ This guide assumes you have a GRANDstack application on your local machine. If n
     1. Navigate to `api` folder locally
     1. Copy `API/Dockerfile` as `API/Dockerfile.pi`
         1. Open file and change `node` to `arm32v7/node`
-            * [link](https://hub.docker.com/r/arm32v7/node/)
+            1. [link](https://hub.docker.com/r/arm32v7/node/)
     1. Create docker image: `sudo docker build -t <your dockerhub username>/<your private repo>:custom-tag -f Dockerfile.pi .`
     1. Run `docker images` to make sure it was completed
 1. Push docker image to docker hub: 
-    * `docker push <your dockerhub username>/<your private repo>:custom-tag`
-    * You may be prompted for `<username>` and `<password>`. If docker is running locally and you are logged in you may not be prompted
+    1. `docker push <your dockerhub username>/<your private repo>:custom-tag`
+    1. You may be prompted for `<username>` and `<password>`. If docker is running locally and you are logged in you may not be prompted
 
 ### Raspberry Pi ###
 
@@ -59,27 +59,11 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 #### React & GraphQL ####
 install docker
 
-1. Log in to Docker: 
-    - `sudo docker login -u <username> -p <password>`
-1. Pull from Docker: 
-    - `docker pull <you dockerhub username>/<your private repo>:custom-tag`
+1. Log in to Docker: `sudo docker login -u <username> -p <password>`
+1. Pull from Docker: `docker pull <you dockerhub username>/<your private repo>:custom-tag`
 1. `sudo docker-compose up -d`	
-1. Get your docker-compose.yml file from your github repository:
-    - `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
-1. Update "docker-compose.yml"
-    - `nano docker-compose.yml`
-    - Revise "docker-compose.yml" file to look [like this](https://github.com/mckenzma/raspberry-pi-guides/blob/master/graphql-docker-compose.yml). 
-    - Note the referenced "docker-compose.yml" file is prefixed by "graphql-". This is purely for easy reference in this repository.
-1. Start docker container:
-    - `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
-1. If you need to stop a container:
-    1. Identify running docker containers:
-        - `docker ps`
-    1. To stop a docker container:
-        - `docker stop <container id>`
-
-Update `docker-compose.yml` using 
-
+1. Get your docker-compose.yml file from your github repository: `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
+1. Update `docker-compose.yml` using `nano docker-compose.yml` to read as follows:
 ```
 version: '3'
 
@@ -100,6 +84,17 @@ services:
       - REACT_APP_GRAPHQL_URI=http://<MAC ip address on lan>:4001/graphql
       - REACT_APP_MAPBOX_TOKEN=<key>
 ```
+1. Start docker container:
+    - `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
+1. If you need to stop a container:
+    1. Identify running docker containers:
+        - `docker ps`
+    1. To stop a docker container:
+        - `docker stop <container id>`
+
+
+
+
 
 
 #### Neo4j ####
