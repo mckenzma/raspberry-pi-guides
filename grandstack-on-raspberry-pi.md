@@ -27,20 +27,20 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 ### MacBook Pro (Development Machine) ###
 1. [Install latest Raspberry Pi OS on SD Card](https://www.raspberrypi.org/documentation/installation/installing-images/). **Rasbian Buster Lite** is perfect for keeping the OS lite and just using the terminal!
 1. [Get and Install Docker](https://docs.docker.com/get-docker/)
-  - In this guide I am using [Mac](https://docs.docker.com/docker-for-mac/install/).
+    - In this guide I am using [Mac](https://docs.docker.com/docker-for-mac/install/).
 1. [Get and Install Docker Compose](https://docs.docker.com/compose/install/)
 1. [Sign up for or sign into Docker Hub](https://hub.docker.com/)
 1. [Create Docker Hub repository and set to private](https://docs.docker.com/docker-hub/repos/)
 1. Build docker image (MacBook Pro)
-  1. Navigate to `api` folder locally
-  1. Copy `API/Dockerfile` as `API/Dockerfile.pi`
-    1. Open file and change `node` to `arm32v7/node`
-      * [link](https://hub.docker.com/r/arm32v7/node/)
-  1. Create docker image: `sudo docker build -t <your dockerhub username>/<your private repo>:custom-tag -f Dockerfile.pi .`
-  1. Run `docker images` to make sure it was completed
+    1. Navigate to `api` folder locally
+    1. Copy `API/Dockerfile` as `API/Dockerfile.pi`
+        1. Open file and change `node` to `arm32v7/node`
+            * [link](https://hub.docker.com/r/arm32v7/node/)
+    1. Create docker image: `sudo docker build -t <your dockerhub username>/<your private repo>:custom-tag -f Dockerfile.pi .`
+    1. Run `docker images` to make sure it was completed
 1. Push docker image to docker hub: 
-  * `docker push <your dockerhub username>/<your private repo>:custom-tag`
-  * You may be prompted for `<username>` and `<password>`. If docker is running locally and you are logged in you may not be prompted
+    * `docker push <your dockerhub username>/<your private repo>:custom-tag`
+    * You may be prompted for `<username>` and `<password>`. If docker is running locally and you are logged in you may not be prompted
 
 ### Raspberry Pi ###
 
@@ -105,12 +105,12 @@ services:
 #### Neo4j ####
 
 1. Identify & Install Neo4j Version
-  1. [Neo4j Debian Packages](https://debian.neo4j.com/)
+    1. [Neo4j Debian Packages](https://debian.neo4j.com/)
 1. Install Java: Will need to install OpenJDK 11 runtime as stated [here](https://neo4j.com/docs/operations-manual/current/installation/linux/debian/?_ga=2.196841515.687545963.1608309763-1865895428.1586215484)
 1. Update `neo4j.conf`
-  1. Navigate to folder: `cd /etc/neo4j/`
-  1. Update file using `sudo nano neo4j.conf` to modify the file
-    1. Update `dbms.connector` settings:
+    1. Navigate to folder: `cd /etc/neo4j/`
+    1. Update file using `sudo nano neo4j.conf` to modify the file
+        1. Update `dbms.connector` settings:
 
 ```
 dbms.default_listen_address=0.0.0.0
@@ -134,19 +134,17 @@ dbms.connector.bolt.listen_address=0.0.0.0:7687
 ```
 dbms.security.procedures.unrestricted=apoc.*
 dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*
-  ```
+```
   <!-- TODO: Address 0.0.0.0 for sensitive data -->
     
-    - uncomment out this line: `dbms.security.procedures.unrestricted=apoc.*`
-    - update this line: `dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*,apoc.*`
 1. Install APOC
-  1. [Identify APOC release (.jar file) to install](https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/)
-  1. Download APOC .jar file: `sudo wget https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.0.0.15/apic-4.0.0.15-all.jar`
-  1. Copy file to `plugins` folder: `cp apoc-4.0.0.15.-all.jar /var/lib/neo4j/plugins/`
-  1. Navigate to `plugins` folder: `cd /var/lib/neo4j/plugins/`
-  1. `sudo chown neo4j:neo4j *.jar`
-  1. Restart Neo4j service if running: `systemctl restart neo4j`; Or start Neo4j service: `sudo neo4j start`
-    - To stop neo4j: `sudo neo4j stop`
+    1. [Identify APOC release (.jar file) to install](https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/)
+    1. Download APOC .jar file: `sudo wget https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.0.0.15/apic-4.0.0.15-all.jar`
+    1. Copy file to `plugins` folder: `cp apoc-4.0.0.15.-all.jar /var/lib/neo4j/plugins/`
+    1. Navigate to `plugins` folder: `cd /var/lib/neo4j/plugins/`
+    1. `sudo chown neo4j:neo4j *.jar`
+    1. Restart Neo4j service if running: `systemctl restart neo4j`; Or start Neo4j service: `sudo neo4j start`
+        - To stop neo4j: `sudo neo4j stop`
 
 
 
