@@ -19,6 +19,15 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 - [Yes, you can run Docker on Raspian](https://withblue.ink/2019/07/13/yes-you-can-run-docker-on-raspbian.html)
 - [How to Install and Use Docker on Raspberry Pi](https://linuxize.com/post/how-to-install-and-use-docker-on-raspberry-pi/)
 - [Getting started with Docker on your Raspberry Pi](https://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/)
+- [How To Install Docker on Raspberry Pi](https://phoenixnap.com/kb/docker-on-raspberry-pi)
+- [Docker and Docker Compose on Raspberry Pi OS](https://withblue.ink/2020/06/24/docker-and-docker-compose-on-raspberry-pi-os.html)
+- [Installing Docker and Docker Compose on the Raspberry Pi in 5 Simple Steps](https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl)
+- [docker-compose up](https://docs.docker.com/compose/reference/up/#:~:text=The%20docker%2Dcompose%20up%20command,background%20and%20leaves%20them%20running.)
+- [Neo4j Docs - Debian](https://neo4j.com/docs/operations-manual/current/installation/linux/debian/?_ga=2.196841515.687545963.1608309763-1865895428.1586215484)
+- [Docker arm32v7/node](https://hub.docker.com/r/arm32v7/node/)
+
+
+
 
 &nbsp; <!-- extra line break -->
 
@@ -85,25 +94,27 @@ This guide assumes you have a GRANDstack application on your local machine. If n
             ```
             <!-- TODO: Address 0.0.0.0 for sensitive data -->  
 1. Install APOC
+    1. Navigate back to pi home directory: `cd`
     1. [Identify APOC release (.jar file) to install](https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/)
-    1. Download APOC .jar file: `sudo wget https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.0.0.15/apic-4.0.0.15-all.jar`
-    1. Copy file to `plugins` directory: `cp apoc-4.0.0.15.-all.jar /var/lib/neo4j/plugins/`
+    1. Download APOC .jar file: `sudo wget https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.0.0.15/apoc-4.0.0.15-all.jar`
+    1. Copy file to `plugins` directory: `cp apoc-4.0.0.15-all.jar /var/lib/neo4j/plugins/`
     1. Navigate to `plugins` directory: `cd /var/lib/neo4j/plugins/`
     1. `sudo chown neo4j:neo4j *.jar`
-    1. start Neo4j service: `sudo neo4j start`
-        - If running, restart Neo4j service: `systemctl restart neo4j`
-        - To stop neo4j: `sudo neo4j stop`
+1. Start Neo4j service: `sudo neo4j start`
+    * If running, restart Neo4j service: `systemctl restart neo4j`
+    * To stop neo4j: `sudo neo4j stop`
+1. Access Neo4j browser: `<raspberry pi ip address>:7474/browser`
 <!-- TODO
 1.Add step to connect external SSD
 https://www.raspberrypi.org/documentation/configuration/external-storage.md
 -->
 
 ### React & GraphQL ###
-1. Install docker <!-- TODO: expand this -->
+1. Install docker & docker-compose <!-- TODO: expand this -->(https://phoenixnap.com/kb/docker-on-raspberry-pi)
 1. Log in to Docker: `sudo docker login -u <username> -p <password>`
 1. Pull from Docker: `docker pull <you dockerhub username>/<your private repo>:custom-tag`
-1. `sudo docker-compose up -d`	
-1. Get your docker-compose.yml file from your github repository: `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml`
+1. `sudo docker-compose up -d`	<!-- Is this needed? -->
+1. Get your docker-compose.yml file from your github repository: `wget https://raw.githubusercontent.com/<github username>/<github repo>/master/docker-compose.yml > docker-compose.yml` <!-- this doesn;t seem to be working right. did next steps manually -->
 1. Update `docker-compose.yml` to read as follows:
     ```
     version: '3'
@@ -123,11 +134,15 @@ https://www.raspberrypi.org/documentation/configuration/external-storage.md
           - 3000:3000
         environment:
           - REACT_APP_GRAPHQL_URI=http://<MAC ip address on lan>:4001/graphql
-          - REACT_APP_MAPBOX_TOKEN=<key>
+          - <other environment variables go here>
     ```
-1. Start docker container: `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
+    * Regarding `<other environment variables go here>`. One example would be to use something like `REACT_APP_MAPBOX_TOKEN=<key>` if you have a mapbox component as part of the UI.
+1. Start docker container: 
+    1. API: `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 4001:4001 <your dockerhub username>/<your private repo>:custom-tag`
+    1. UI: `docker run --rm -it -e NEO4J_URI=bolt://<MAC ip address on lan> -e NEO4J_USER=<username> -e NEO4J_PASSWORD=<password> -p 3000:3000 <your dockerhub username>/<your private repo>:custom-tag`
 1. To stop a container: 
-    1. Identify running docker containers: `docker ps`
-    1. To stop a docker container: `docker stop <container id>`
-
-
+    * Identify running  containers: `docker ps`
+    * To stop a running container: `docker stop <container id>`
+1. Access running application
+    * GraphQL playground: `<raspberry pi ip address>:4001/graphql`
+    * React UI: `<raspberry pi ip address>:3000`
