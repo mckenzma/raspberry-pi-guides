@@ -25,6 +25,7 @@ This guide assumes you have a GRANDstack application on your local machine. If n
 - [docker-compose up](https://docs.docker.com/compose/reference/up/#:~:text=The%20docker%2Dcompose%20up%20command,background%20and%20leaves%20them%20running.)
 - [Neo4j Docs - Debian](https://neo4j.com/docs/operations-manual/current/installation/linux/debian/?_ga=2.196841515.687545963.1608309763-1865895428.1586215484)
 - [Docker arm32v7/node](https://hub.docker.com/r/arm32v7/node/)
+- [Renaming Raspberry Pi](https://thepihut.com/blogs/raspberry-pi-tutorials/19668676-renaming-your-raspberry-pi-the-hostname)
 
 
 
