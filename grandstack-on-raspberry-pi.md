@@ -9,6 +9,7 @@ This guide assumes you have a GRANDstack application on your local machine. If n
   * Version 4
   * RAM: 8GB
 * Micro SD Card: 64GB
+<!-- * Wifi Adapter -->
 * MacBook Pro
   * GRANDstack development machine
   * Build docker images
